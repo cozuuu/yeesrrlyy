@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relationship Archive</title>
+    <link rel="stylesheet" href="css/evidence.css">
+</head>
+
+<body>
+
+<div class="notebook-container">
+
+    <div class="notebook" id="notebook">
+
+        <!-- ================= COVER ================= -->
+
+        <div class="cover" onclick="openNotebook()">
+
+            <div class="cover-design">
+
+                <div class="embossed-title">
+                Kozuu's
+                </div>
+
+                <div class="heart-seal">
+                    🤎
+                </div>
+
+                <div class="cover-subtitle">
+                    C for coconuttt...
+                </div>
+
+                <p class="tinyText">
+                        Made with late-night thoughts,<br>
+                        terrible jokes,<br>
+                        and way too much love.
+                    </p>
+
+            </div>
+
+        </div>
+
+        <!-- ================= SPREAD 1 ================= -->
+
+        <div class="spread" id="spread1">
+
+            <div class="page inside-left">
+
+                <div class="notebook-lines">
+
+                    <div class="chapter-tag">
+                        CHAPTER 1
+                    </div>
+
+                    <h1 class="page-title">
+                        Everything
+                        Started
+                        With One
+                        Question.
+                    </h1>
+
+                    <div class="divider"></div>
+
+                    <p class="journal-text italic">
+
+                        Some stories begin
+                        with fireworks.
+
+                        <br><br>
+
+                        Ours began
+                        with one tiny question.
+
+                        <br><br>
+
+                        <strong>
+                        "Frontend or backend?"
+                        </strong>
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="page inside-right">
+
+                <div class="notebook-lines">
+
+                    <div class="chapter-tag">
+                        THE REPLY
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <p class="journal-text">
+
+                        I quietly opened
+                        your private chat.
+
+                        <br><br>
+
+                        "Currently,
+                        I'm learning frontend."
+
+                        <br><br>
+
+                        I never imagined
+                        that one reply
+                        would become
+                        the beginning
+                        of our story.
+
+                    </p>
+
+                    <button
+                        class="btn-book"
+                        onclick="nextSpread()">
+
+                        Next →
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+<!-- ================= SPREAD 2 ================= -->
+        <div class="spread" id="spread2">
+            <div class="page inside-left">
+                <div class="notebook-lines">
+                    <div class="chapter-tag">CHAPTER 2</div>
+                    <h2 class="page-title">Two Days Later...</h2>
+                    <div class="divider"></div>
+                    <p class="journal-text">
+                        We became a couple.
+                        <br><br>
+                        To be honest...
+                        <br><br>
+                        Both of us thought this relationship wouldn't last.
+                    </p>
+                </div>
+            </div>
+
+            <div class="page inside-right">
+                <div class="notebook-lines">
+                    <div class="chapter-tag">PLOT TWIST</div>
+                    <div class="divider"></div>
+                    <p class="journal-text">
+                        We were completely wrong.
+                        <br><br>
+                        Two days became weeks.
+                        <br>
+                        Weeks became months.
+                        <br><br>
+                        And here we are...
+                        <br>
+                        Eight months later.
+                    </p>
+                    <div style="display:flex;justify-content:space-between;margin-top:30px;">
+                        <button class="btn-book" onclick="prevSpread()">← Back</button>
+                        <button class="btn-book" onclick="nextSpread()">Continue →</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= SPREAD 3 (NEW ELEGANT STORY CLOSURE) ================= -->
+<div class="spread" id="spread3">
+            <div class="page inside-left">
+                <div class="notebook-lines">
+                    <div class="chapter-tag">OUR TIMELINE</div>
+                    <h2 class="page-title">Sundays & Distance</h2>
+                    <div class="divider"></div>
+                    <p class="journal-text">
+                        We used to share every Sunday and every free evening together. 
+                        <br><br>
+                        Now, the distance has temporarily changed our scenery, but it hasn't changed a single thing about us. 
+                        <br><br>
+                        Keeping my heart entirely safe and warm, even now across the distance while we wait to meet again.
+                    </p>
+                    <button class="btn-book" style="margin-top: 20px;" onclick="prevSpread()">← Back</button>
+                </div>
+            </div>
+
+            <div class="page inside-right" style="background-color: #030008; color: #fff;">
+                <div class="space-container" style="height: 220px; margin-bottom: 10px; position: relative; overflow: hidden;">
+                    <div class="star constellation" id="star1" style="top: 20%; left: 15%;"></div>
+                    <div class="star constellation" id="star2" style="top: 35%; left: 30%;"></div>
+                    <div class="star constellation" id="star3" style="top: 15%; right: 25%;"></div>
+                    <div class="star constellation" id="star4" style="top: 40%; right: 10%;"></div>
+                    <div class="star constellation" id="star5" style="top: 65%; left: 20%;"></div>
+                    <div class="star constellation" id="star6" style="top: 70%; right: 30%;"></div>
+                    
+                    <div id="star-center" class="star" style="top: 45%; left: 50%; transform: translate(-50%, -50%) scale(0); opacity: 0; background: #fffbdf; width: 16px; height: 16px;"></div>
+                </div>
+
+                <center>
+                    <input type="range" min="0" max="100" value="0" class="star-slider" style="width: 80%;" id="starSlider" oninput="pullConstellation(this.value)">
+                    <p id="starMessage" class="star-message" style="font-size: 0.95rem; margin-top: 15px; opacity: 0.3; transition: opacity 0.5s;">
+                        "Bring the stars back together..."
+                    </p>
+                    
+                    <button id="starNext" class="btn-book" style="display: none; background: #fff; color: #030008; margin-top: 15px;" onclick="location.href='birthday.html'">
+                        You got a Letter from someone! →
+                    </button>
+                </center>
+            </div>
+        </div>
+    </div> <!-- Closes #notebook -->
+</div> <!-- Closes .notebook-container -->
+
+<script src="js/evidence.js"></script>
+</body>
+</html>

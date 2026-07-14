@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Before Us & The Stars</title>
+    <link rel="stylesheet" href="css/evidence.css">
+</head>
+<body id="storyBody">
+
+    <div class="story-container" id="chapter2">
+        <div class="story-book">
+            <h2 class="story-heading">CHAPTER 2: Before Us</h2>
+            <p>It all started with a simple question under a profile on a LeoMatch Bot: <strong style="color: #8D6E63;">"Frontend or backend?"</strong></p>
+            <p style="margin-top: 15px;">I slipped into your private chat and answered, <em style="color: #5D4037;">"Currently, I'm learning frontend."</em> That was our very first talk online.</p>
+            <p style="margin-top: 15px;">Two days later, we made it official. To be honest, we both secretly thought it might be a short-term thing... we didn't know yet how strong we would become. But we were so wrong. Here we are, 8 months later, proving how deep this love runs.</p>
+            <p style="margin-top: 15px;">We used to share every Sunday and every free evening together. Now, the distance has temporarily changed our scenery, but it hasn't changed a single thing about us. We are waiting for the day we get to meet again.</p>
+            
+            <div style="display: flex; justify-content: center; gap: 20px; margin-top: 40px;">
+                <button class="btn-book" style="background: transparent; color: #3E2723; border: 2px solid #3E2723; box-shadow: none;" onclick="location.href='index.html'">Back</button>
+                <button class="btn-book" onclick="startStars()">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="dark-space" id="chapter4" style="display: none; width: 100vw;">
+        <div class="space-container">
+            <div id="star-left" class="star"></div>
+            <div id="star-right" class="star"></div>
+        </div>
+        <input type="range" min="0" max="100" value="0" class="star-slider" id="starSlider" oninput="moveStars(this.value)">
+        <p id="starMessage" class="star-message">"Distance never changed where home was."</p>
+        
+        <div style="display: flex; justify-content: center; gap: 20px; margin-top: 20px;">
+            <button class="btn-book" style="background: transparent; color: #fff; border: 2px solid #fff; box-shadow: none;" onclick="backToStory()">Back</button>
+            <button id="starNext" class="btn-book" style="display: none; background: #fff; color: #030008;" onclick="location.href='evidence.html'">Open The Evidence</button>
+        </div>
+    </div>
+
+    <script src="js/evidence.js"></script>
+    <script>
+        function startStars() {
+            document.getElementById('chapter2').style.display = 'none';
+            document.getElementById('storyBody').style.backgroundColor = '#030008';
+            document.getElementById('storyBody').style.backgroundImage = 'none';
+            document.getElementById('chapter4').style.display = 'flex';
+        }
+
+        function backToStory() {
+            document.getElementById('chapter4').style.display = 'none';
+            document.getElementById('storyBody').style.backgroundColor = '#2D1A12';
+            document.getElementById('storyBody').style.backgroundImage = 'radial-gradient(#3E2723 1px, transparent 1px)';
+            document.getElementById('chapter2').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,662 @@
+:root {
+    --space-bg: #030008;
+    --paper-bg: #f4edd8;
+    --paper-text: #2b221a;
+    --star-color: #fffbdf;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+body {
+    background-color: #2D1A12;
+    background-image: radial-gradient(#3E2723 1px, transparent 1px);
+    background-size: 24px 24px;
+    color: #3E2723;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: auto;
+}
+
+/* ==========================================
+   NOTEBOOK & BOOK LAYOUT (FIXED OVERLAPS)
+   ========================================== */
+.notebook-container {
+    perspective: 1500px;
+    width: 100%;
+    max-width: 800px;
+    height: 550px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+}
+
+.notebook {
+    width: 420px;
+    min-height: 650px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1),
+                width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.notebook.opened {
+    width: 800px;
+    transform: rotateX(5deg) rotateY(-2deg);
+}
+
+.cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #2D1A12;
+    background: linear-gradient(145deg, #5A3D31, #2D1A12);
+    background-image: linear-gradient(135deg, #4E342E 25%, transparent 25%), 
+                      linear-gradient(225deg, #4E342E 25%, transparent 25%);
+    background-size: 30px 30px;
+    color: #FDFBF7;
+    left: 0;
+    border-radius: 10px 15px 15px 10px;
+    box-shadow: 5px 10px 30px rgba(0, 0, 0, 0.5);
+    transform-origin: left center;
+    transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1), width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 5;
+    cursor: pointer;
+    backface-visibility: hidden;
+}
+
+.notebook.opened .cover {
+    width: 50%;
+    transform: rotateY(-180deg);
+    border-radius: 15px 10px 10px 15px;
+    box-shadow: -5px 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+.cover-design {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    border: 2px solid #8D6E63;
+    margin: 15px;
+    height: calc(100% - 30px);
+    border-radius: 8px;
+    position: relative;
+}
+
+.embossed-title {
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 4px;
+    color: #FDFBF7;
+    text-shadow: 1px 1px 0px #2D1A12, 2px 2px 4px rgba(0,0,0,0.6);
+}
+
+.cover-subtitle {
+    margin-top: 12px;
+    color: #D7CCC8;
+    letter-spacing: 2px;
+    font-size: .8rem;
+}
+
+.tinyText {
+    position: absolute;
+    bottom: 75px;
+    text-align: center;
+    color: #D7CCC8;
+    font-size: .75rem;
+    line-height: 1.7;
+}
+
+.heart-seal {
+    font-size: 3rem;
+    margin: 30px 0;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+}
+
+.click-prompt {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #D7CCC8;
+    position: absolute;
+    bottom: 30px;
+    animation: pulse 2s infinite;
+}
+
+/* ==========================================
+   PAGES SYSTEM (THE ULTIMATE GLASS COVER FIX)
+   ========================================== */
+.page {
+    position: absolute;
+    width: 50%;
+    min-height: 100%;
+    background: #FDFBF7;
+    padding: 35px;
+    box-shadow: inset 3px 0 10px rgba(0,0,0,.1);
+    
+    /* CRITICAL 3D FIX: Stops the pages from clipping through the front cover */
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    
+    /* Hard block: pages are physically non-existent when closed */
+    display: none !important;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 2;
+    overflow: hidden;
+}
+
+/* CRITICAL FIX: Pages ONLY render inside the document when the book has completely flipped open */
+.notebook.opened .page {
+    display: block !important;
+    animation: revealPages 0.2s ease-in 0.3s forwards; /* Delays appearance until cover finishes moving */
+}
+
+/* Smooth fade-in animation once the cover is safely out of the way */
+@keyframes revealPages {
+    from {
+        opacity: 0;
+        pointer-events: none;
+    }
+    to {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+.inside-left {
+    left: 0;
+    border-radius: 15px 0 0 15px;
+    border-right: 2px solid #EFEBE9;
+}
+
+.inside-right {
+    left: 50%;
+    border-radius: 0 15px 15px 0;
+    box-shadow: 5px 10px 25px rgba(0, 0, 0, 0.15), inset -3px 0 10px rgba(0,0,0,0.05);
+}
+
+.notebook-lines {
+    display: block !important;
+    height: 100%;
+    padding-top: 14px;
+    padding-right: 8px;
+    background-image: linear-gradient(#EFEBE9 1px, transparent 1px);
+    background-size: 100% 28px;
+    line-height: 28px;
+    overflow-y: auto;
+}
+
+.chapter-tag {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: #8D6E63;
+    font-weight: bold;
+}
+
+.page-title {
+    font-size: 1.8rem;
+    line-height: 1.2;
+    color: #3E2723;
+    margin-top: 10px;
+    margin-bottom: 24px;
+}
+
+.divider {
+    height: 2px;
+    background-color: #D7CCC8;
+    margin-bottom: 28px;
+}
+
+.journal-text {
+    display: block !important;
+    color: #4b3328;
+    line-height: 2;
+    font-size: .98rem;
+}
+.btn-book {
+    background: #3E2723;
+    color: #FDFBF7;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 25px;
+    transition: all 0.2s;
+    font-family: inherit;
+    box-shadow: 0 4px 10px rgba(62, 39, 35, 0.2);
+}
+
+.btn-book:hover {
+    background: #8D6E63;
+    box-shadow: 0 6px 15px rgba(141, 110, 99, 0.3);
+}
+
+.spread {
+    display: none;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.1s ease-in-out; /* Super fast page flip */
+}
+
+/* When a chapter is active, show it immediately */
+.notebook.opened .spread.active {
+    display: flex !important;
+    opacity: 1 !important;
+}
+
+/* ==========================================
+   INTERACTIVE CONSTELLATION ROUND STARS
+   ========================================== */
+.star {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #fffbdf;
+    border-radius: 50%; /* FIXED: Smooth round circle shapes */
+    box-shadow: 0 0 10px #fffbdf, 0 0 20px #fffbdf;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.space-container {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.star-slider {
+    width: 80%;
+    -webkit-appearance: none;
+    background: rgba(255,255,255,0.1);
+    height: 4px;
+    border-radius: 2px;
+    outline: none;
+    margin-bottom: 20px;
+}
+
+.star-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fffbdf;
+    cursor: pointer;
+    box-shadow: 0 0 8px #fffbdf;
+}
+
+.star-message {
+    font-size: 0.95rem;
+    color: #fff;
+    min-height: 40px;
+    text-align: center;
+    padding: 0 20px;
+}
+
+/* ==========================================
+   COCONUT HUNT STYLING
+   ========================================== */
+.game-header {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    text-align: center;
+    background: rgba(45, 26, 18, 0.95);
+    border: 1px dashed #D7CCC8;
+    padding: 15px 25px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    max-width: 90%;
+    width: 600px;
+    transition: opacity 0.5s ease;
+}
+
+.game-instruction {
+    color: #FDFBF7;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    font-family: inherit;
+}
+
+.counter-display {
+    color: #fffbdf;
+    font-size: 1.1rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.coconut {
+    position: absolute;
+    z-index: 40;
+    cursor: pointer;
+    font-size: 28px;
+    user-select: none;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+}
+
+.coconut:hover {
+    transform: scale(1.4) rotate(15deg) !important;
+}
+
+.hidden-under-seal {
+    position: absolute;
+    z-index: 1; 
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.envelope.locked {
+    filter: grayscale(0.5) blur(0.5px);
+    transition: all 0.5s ease;
+}
+
+/* ==========================================
+   RUNAWAY KISS & ENVELOPE MODALS
+   ========================================== */
+.stars-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+        radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px);
+    background-size: 550px 550px, 350px 350px;
+    background-position: 0 0, 40px 60px;
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.kiss-target {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    font-size: 36px;
+    z-index: 150;
+    cursor: pointer;
+    user-select: none;
+    transition: left 0.15s cubic-bezier(0.25, 0.8, 0.25, 1), top 0.15s cubic-bezier(0.25, 0.8, 0.25, 1);
+    filter: drop-shadow(0 0 8px rgba(255, 105, 180, 0.8));
+    animation: pulseKiss 1.5s infinite ease-in-out;
+}
+
+.kiss-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(17, 8, 5, 0.9);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200; /* FIXED: Always opens on top of page content */
+}
+
+.dialog-content {
+    background: #FDFBF7;
+    padding: 35px 40px;
+    border-radius: 12px;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.6);
+    text-align: center;
+    max-width: 380px;
+    width: 90%;
+    border: 2px solid #D7CCC8;
+}
+
+.dialog-text {
+    font-size: 1.3rem;
+    color: #3E2723;
+    margin-bottom: 20px;
+    font-weight: bold;
+    line-height: 1.5;
+}
+
+#kissInput {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #D7CCC8;
+    border-radius: 6px;
+    background: #fff;
+    color: #3E2723;
+    font-size: 1rem;
+    outline: none;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: inherit;
+}
+
+#kissInput:focus {
+    border-color: #8D6E63;
+}
+
+.dialog-btn {
+    background: #3E2723 !important;
+    color: #FDFBF7 !important;
+    border: none;
+    width: 100%;
+    padding: 12px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.dialog-btn:hover {
+    background: #8D6E63 !important;
+}
+
+.envelope {
+    position: relative;
+    width: 450px;
+    height: 280px;
+    background: #e6dfd3;
+    border-radius: 6px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    z-index: 20;
+}
+
+.envelope:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 30px 50px rgba(0, 0, 0, 0.8);
+}
+
+.flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 225px solid transparent;
+    border-right: 225px solid transparent;
+    border-top: 140px solid #dcd3c1;
+    z-index: 3;
+}
+
+.pocket {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 225px solid #ebd9c0;
+    border-right: 225px solid #ebd9c0;
+    border-top: 140px solid transparent;
+    z-index: 2;
+}
+
+.wax-seal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, #8b261e 0%, #5c140e 100%);
+    border-radius: 50%;
+    z-index: 4;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4), inset 0 0 8px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed rgba(255, 255, 255, 0.15);
+    animation: pulseGlow 2s infinite ease-in-out;
+}
+
+.heart-icon {
+    font-size: 22px;
+}
+
+.instruction {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    font-size: 11px;
+    color: #8c7e6b;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    z-index: 5;
+    font-weight: bold;
+}
+
+.letter {
+    display: none;
+    width: 90%;
+    max-width: 600px;
+    background: #FDFBF7;
+    padding: 50px;
+    border-radius: 4px;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.7);
+    border: 1px solid #EFEBE9;
+    background-image: linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px);
+    background-size: 100% 28px;
+    line-height: 28px;
+    z-index: 30;
+    animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.letter-content {
+    display: block !important;
+}
+
+.letter-content h2 {
+    color: #3E2723;
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.letter-date {
+    display: block;
+    font-size: 13px;
+    color: #8D6E63;
+    margin-bottom: 15px;
+}
+
+.letter p {
+    color: #4b3328;
+    font-size: 15px;
+    margin-bottom: 24px;
+    line-height: 1.8;
+}
+
+.signature {
+    text-align: right;
+    font-style: italic;
+    color: #8D6E63;
+    font-size: 1.2rem;
+    margin-top: 35px;
+}
+
+/* ==========================================
+   CELEBRATION & EPILOGUE
+   ========================================== */
+.celebration-bg {
+    background: radial-gradient(circle, #5D4037 0%, #2D1A12 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    z-index: 10;
+}
+
+.celebration-box {
+    text-align: center;
+    color: #FDFBF7;
+    max-width: 500px;
+    padding: 20px;
+}
+
+.cake-icon {
+    font-size: 5.5rem;
+    margin-bottom: 25px;
+    animation: bounce 2s infinite;
+}
+
+.epilogue-bg {
+    background-color: #050307;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #fff;
+    text-align: center;
+    z-index: 10;
+}
+
+.epilogue-text {
+    font-size: 1.3rem;
+    letter-spacing: 3px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Keyframes animations */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+@keyframes pulseKiss {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+@keyframes pulseGlow {
+    0%, 100% { transform: translate(-50%, -30%) scale(1); }
+    50% { transform: translate(-50%, -30%) scale(1.08); box-shadow: 0 0 20px rgba(139, 38, 30, 0.8); }
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+}

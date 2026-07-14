@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, Ko Ko</title>
+    <link rel="stylesheet" href="css/evidence.css">
+    <style>
+        /* ==========================================
+   MAGICAL GLOW BUTTON STYLE
+   ========================================== */
+.glow-btn {
+    background: linear-gradient(135deg, #FDFBF7 0%, #E5D3C8 100%);
+    color: #3E2723;
+    border: none;
+    margin-top: 40px;
+    padding: 16px 45px;
+    font-size: 1.15rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border-radius: 50px;
+    cursor: pointer;
+    position: relative;
+    z-index: 5;
+    box-shadow: 0 0 20px rgba(253, 251, 247, 0.4), 0 8px 25px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.glow-btn:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 0 30px rgba(253, 251, 247, 0.7), 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+.glow-btn:active {
+    transform: translateY(-1px);
+}
+
+/* ==========================================
+   CINEMATIC EPILOGUE SCREEN STYLES
+   ========================================== */
+.epilogue-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at center, #150d0a 0%, #070403 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+/* Soft breathing colorful star cloud nebula background overlay */
+.nebula-overlay {
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    background: radial-gradient(circle at 50% 50%, rgba(141, 110, 99, 0.15) 0%, rgba(0,0,0,0) 60%);
+    animation: nebulaDrift 15s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+.epilogue-content {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* Constellation Starlight Pop Animation */
+.constellation {
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.star-pop {
+    display: inline-block;
+    opacity: 0;
+    transform: scale(0);
+}
+
+/* Staggered entry for stars when the frame is initialized */
+.notebook.opened .s1, /* Compatible fallback selector hooks */
+#chapter7[style*="display: flex"] .s1 { animation: starReveal 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 0.4s; }
+#chapter7[style*="display: flex"] .s2 { animation: starReveal 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 0.7s; font-size: 1.6rem; }
+#chapter7[style*="display: flex"] .s3 { animation: starReveal 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 1s; }
+
+/* The elegant glowing final quote */
+.cinematic-quote {
+    font-size: 2.2rem;
+    color: #FDFBF7;
+    font-weight: 300;
+    letter-spacing: 4px;
+    opacity: 0;
+    text-shadow: 0 0 15px rgba(253, 251, 247, 0.6), 0 0 30px rgba(215, 204, 200, 0.3);
+    border-right: 2px solid transparent;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+#chapter7[style*="display: flex"] .cinematic-quote {
+    animation: typeQuote 2.5s steps(30, end) forwards 1.4s, glowPulse 3s ease-in-out infinite alternate 3.9s;
+}
+
+/* ==========================================
+   NEW VISUAL ANIMATION ENGINE KEYFRAMES
+   ========================================== */
+@keyframes nebulaDrift {
+    0% { transform: scale(1) translate(0, 0); }
+    100% { transform: scale(1.1) translate(-3%, -3%); }
+}
+
+@keyframes starReveal {
+    0% { transform: scale(0) rotate(-45deg); opacity: 0; }
+    70% { transform: scale(1.3) rotate(10deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); opacity: 0.9; filter: drop-shadow(0 0 8px #FFEB3B); }
+}
+
+@keyframes typeQuote {
+    from { width: 0; opacity: 1; border-right: 2px solid #FDFBF7; }
+    to { width: 100%; opacity: 1; border-right: 2px solid transparent; }
+}
+
+@keyframes glowPulse {
+    0% { text-shadow: 0 0 15px rgba(253, 251, 247, 0.5); }
+    100% { text-shadow: 0 0 25px rgba(253, 251, 247, 0.9), 0 0 40px rgba(215, 204, 200, 0.5); transform: scale(1.01); }
+}
+        /* ==========================================
+   GRAND CELEBRATION DECOR STYLES
+   ========================================== */
+.grand-cake-display {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 35px;
+}
+
+/* Massive sizing for the main cake icon */
+.mega-cake {
+    font-size: 7.5rem; /* Massive, beautiful scale */
+    display: inline-block;
+    position: relative;
+    z-index: 2;
+    animation: luxuriousFloat 4s ease-in-out infinite;
+}
+
+/* Soft glowing golden halo behind the cake */
+.cake-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 160px;
+    height: 160px;
+    background: radial-gradient(circle, rgba(253, 251, 247, 0.45) 0%, rgba(253, 251, 247, 0) 70%);
+    z-index: 1;
+    border-radius: 50%;
+    animation: pulseGlow 2s ease-in-out infinite alternate;
+}
+
+/* Polished typography styles matching your original layout */
+.celebration-title {
+    color: #FDFBF7; 
+    margin-bottom: 15px; 
+    font-size: 2.5rem; 
+    letter-spacing: 2px;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.celebration-subtitle {
+    font-size: 1.15rem; 
+    color: #D7CCC8;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.grand-btn {
+    background: #FDFBF7; 
+    color: #3E2723; 
+    margin-top: 40px; 
+    padding: 14px 40px;
+    font-size: 1.1rem;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s;
+}
+.grand-btn:hover {
+    transform: translateY(-3px);
+}
+
+/* Absolute container mapping out background party items */
+.decor-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+}
+
+/* Floating Balloons */
+.balloon {
+    position: absolute;
+    font-size: 2.5rem;
+    opacity: 0.8;
+}
+.balloon-1 {
+    left: -60px;
+    bottom: 40px;
+    animation: floatUpDrift 6s ease-in-out infinite alternate;
+}
+.balloon-2 {
+    right: -60px;
+    top: 20px;
+    animation: floatUpDrift 7s ease-in-out infinite alternate-reverse;
+}
+
+/* Twinkling Magical Sparkles around the box bounds */
+.sparkle {
+    position: absolute;
+    font-size: 1.5rem;
+    animation: twinkleSparkle 1.5s ease-in-out infinite alternate;
+}
+.sp-1 { left: 15%; top: 15%; animation-delay: 0.2s; }
+.sp-2 { right: 15%; bottom: 20%; animation-delay: 0.6s; }
+.sp-3 { left: 45%; top: -30px; font-size: 2rem; animation-delay: 0s; }
+
+/* ==========================================
+   ANIMATION KEYFRAMES
+   ========================================== */
+@keyframes luxuriousFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(2deg); }
+}
+
+@keyframes pulseGlow {
+    0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
+    100% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+}
+
+@keyframes floatUpDrift {
+    0% { transform: translateY(0) translateX(0) rotate(-5deg); }
+    100% { transform: translateY(-30px) translateX(15px) rotate(5deg); }
+}
+
+@keyframes twinkleSparkle {
+    0% { transform: scale(0.6); opacity: 0.3; filter: blur(0.5px); }
+    100% { transform: scale(1.2); opacity: 1; }
+}
+        /* Modern drop-down success notification */
+        .success-noti {
+            position: fixed;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #FDFBF7;
+            color: #3E2723;
+            padding: 16px 32px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            font-weight: bold;
+            font-size: 1.2rem;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: top 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid #8D6E63;
+        }
+        .success-noti.show {
+            top: 30px;
+        }
+
+        /* Confetti particle elements */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            z-index: 999;
+            top: -10px;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(105vh) rotate(360deg);
+            }
+        }
+
+        /* Making the cake look alive and floating */
+        .animated-cake {
+            font-size: 5rem;
+            display: inline-block;
+            animation: floatCake 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 15px rgba(253, 251, 247, 0.4));
+        }
+        @keyframes floatCake {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+    </style>
+</head>
+<body id="birthdayBody">
+
+    <!-- Ambient background element -->
+    <div class="stars-bg"></div>
+
+    <!-- Drop-down Alert Box -->
+    <div id="successNoti" class="success-noti">
+        🎉 Yayyy you found all coconuts! 🥥
+    </div>
+
+    <!-- Coconut Game Counter & Header -->
+    <div id="gameHeader" class="game-header" style="display: none; opacity: 0;">
+        <p class="game-instruction">"KOKO I lost all my coconuts on the way I was carrying the BD cake to you... Can you find all of them for me?"</p>
+        <div class="counter-display">Coconuts Found: <span id="cocoCount">0</span> / 21 </div>
+    </div>
+
+    <!-- The Playful Runaway Kiss Target -->
+    <div id="kissTarget" class="kiss-target" onmouseover="dodgeKiss()" onclick="registerKissAttempt()" style="display: none;">
+        💋
+    </div>
+
+    <!-- Custom Dialog Box for Kiss Input -->
+    <div id="kissDialog" class="kiss-dialog" style="display: none;">
+        <div class="dialog-content">
+            <p class="dialog-text">mwuh ဆိုပြီးပေးလေကိုကိုရဲ့</p>
+            <input type="text" id="kissInput" placeholder="Type your kiss reply here..." autofocus>
+            <button class="dialog-btn" onclick="submitKissReply()">Send Kiss 😘</button>
+        </div>
+    </div>
+
+    <!-- ================= CHAPTER 5: THE LETTER & ENVELOPE ================= -->
+    <div id="chapter5" style="width: 100%; display: flex; justify-content: center; align-items: center; min-height: 100vh; flex-direction: column; padding: 20px; position: relative;">
+        
+        <!-- The Interactive Envelope -->
+        <div class="envelope" id="envelope" style="opacity: 1;">
+            <div class="flap"></div>
+            <div class="pocket"></div>
+            <div class="wax-seal" id="waxSeal" onclick="startKissGame()" style="cursor: pointer;">
+                <div class="heart-icon" id="sealHeart">❤️</div>
+            </div>
+            <div class="instruction" id="instructionText">Click the seal to unlock 💌</div>
+        </div>
+
+        <!-- The Secret Tear-Jerking Letter -->
+        <div class="letter" id="letter" style="display: none;">
+            <div class="letter-content">
+                <span class="letter-date">July 15, 2026</span>
+                <h2>Happy Birthday, My Whole World ✨</h2>
+                <div class="divider"></div>
+                
+               <p>My Dearest KoKo,</p>
+                
+                <p>
+                    Writing this to you from across the distance makes my heart ache, but it also makes me incredibly grateful. I’ve been sitting here thinking about how much my life has changed since you stepped into it. What started as a simple, random question under a profile, a tiny moment where our paths happened to cross has quietly grown into the safest, deepest, and most beautiful love I have ever known.
+                </p>
+                
+                <p>
+                    To be completely honest, we both had our doubts in the beginning. We held our breath, wondering if this connection would fade. But we were so wonderfully wrong. Seven months have passed, and with every single day, you have shown me what it truly means to be loved, protected, and cherished. You became my comfort zone and my ultimate safety. From the moments we laugh together until our ribs literally ache, to the quiet, heavy nights where just hearing your voice on the phone is enough to wash away all my worries—you are my home.
+                </p>
+                
+                <p>
+                    It breaks my heart a little that I can't reach out and hold your hand today, or look into your eyes to tell you all of this. This screen, this digital notebook, and these words are just a tiny piece of how much you truly mean to me. Distance might be testing our geography right now, but it completely loses when it comes to us. It cannot touch the warmth of how safe you make me feel, nor can it dim the light you bring into my world.
+                </p>
+                
+                <p>
+                    Thank you for being my unexpected plot twist, my unwavering support, and my favorite part of every single day. I can't wait for the Sundays we will get to share again, for the warm hugs waiting for us at the end of this wait, and for all the tomorrows we are going to build together.
+                </p>
+                
+                <p>
+                    Happy Birthday, my favorite human, my partner, the father of our future kids, the owner of my heart and my love. I love you more than any words on a page could ever hold.
+                </p>
+                <p>
+                    Let's build the future together with love KOKO..... Plzz love me till the end of our life and give me your 2 inches forever cuzz I love it from my heart..
+                </p>
+                <p>Love you soooooooo muchhhhh and AwrrBwrr</p>
+                <p class="signature">Forever & always yours,<br>Kozuu</p>
+
+                
+                <center style="margin-top: 30px;">
+                    <button class="btn-book" onclick="startCoconutGame()">C for CAKEEE...</button>
+                </center>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= CHAPTER 6: CELEBRATION ================= -->
+<div class="celebration-bg" id="chapter6" style="display: none; width: 100%;">
+    <div class="celebration-box" style="position: relative; overflow: visible; padding: 50px 40px;">
+        
+        <div class="decor-container">
+            <div class="balloon balloon-1">🎈</div>
+            <div class="balloon balloon-2">🎈</div>
+            <div class="sparkle sp-1">✨</div>
+            <div class="sparkle sp-2">⭐</div>
+            <div class="sparkle sp-3">✨</div>
+        </div>
+        
+        <div class="grand-cake-display">
+            <div class="cake-glow"></div>
+            <div class="mega-cake">🎂</div>
+        </div>
+
+        <h1 class="celebration-title">HAPPY BIRTHDAY, KOKO!</h1>
+        <p class="celebration-subtitle">Let's eat cake, laugh a lot, and make endless beautiful memories together! 🎉</p>
+        
+        <!-- UPGRADED: Magical glowing transition button -->
+        <button class="glow-btn" onclick="goToEpilogue()">Happy 21th Birthday!</button>
+    </div>
+</div>
+
+<!-- ================= CHAPTER 7: EPILOGUE (CINEMATIC SKY) ================= -->
+<div class="epilogue-bg" id="chapter7" style="display: none; width: 100%;">
+    <div class="nebula-overlay"></div>
+    <div class="epilogue-content">
+        <div class="constellation">
+            <span class="star-pop s1">⭐</span>
+            <span class="star-pop s2">✨</span>
+            <span class="star-pop s3">⭐</span>
+            <span class="star-pop s2">✨</span>
+            <span class="star-pop s3">⭐</span>
+            <span class="star-pop s2">✨</span>
+            <span class="star-pop s3">⭐</span>
+            <span class="star-pop s2">✨</span>
+            <span class="star-pop s3">⭐</span>
+        </div>
+        <div class="cinematic-quote">"See you in every tomorrow and love you from my heart."</div>
+    </div>
+</div>
+
+    <!-- Container for dynamically spawned screen coconuts -->
+    <div id="coconutContainer"></div>
+
+    <script>
+        let coconutsFound = 0;
+        const totalCoconuts = 21;
+        let missCount = 0;
+        const maxMisses = 3;
+        let kissGameActive = false;
+
+        // ================= GAME 1: KISSING SURPRISE (BEFORE LETTER) =================
+
+        function startKissGame() {
+            if (kissGameActive) return;
+            kissGameActive = true;
+            
+            document.getElementById('instructionText').innerText = "Catch the kiss to open! 💋";
+            const kissTarget = document.getElementById('kissTarget');
+            kissTarget.style.display = 'block';
+            
+            kissTarget.style.left = "calc(50% - 20px)";
+            kissTarget.style.top = "35%";
+        }
+
+        function dodgeKiss() {
+            const kiss = document.getElementById("kissTarget");
+            const randomX = 50 + Math.random() * (window.innerWidth - 150);
+            const randomY = 50 + Math.random() * (window.innerHeight - 150);
+            
+            kiss.style.left = randomX + "px";
+            kiss.style.top = randomY + "px";
+            
+            missCount++;
+            
+            if (missCount >= maxMisses) {
+                document.getElementById("instructionText").innerText = "Tap anywhere to give a kiss...";
+                document.addEventListener("click", triggerKissDialog);
+            }
+        }
+
+        function registerKissAttempt() {
+            dodgeKiss();
+        }
+
+        function triggerKissDialog(e) {
+            if (e.target.closest('.kiss-dialog') || e.target.id === "kissTarget") return;
+            document.getElementById("kissDialog").style.display = "flex";
+            document.getElementById("kissInput").focus();
+            document.removeEventListener("click", triggerKissDialog);
+        }
+
+        function submitKissReply() {
+            const reply = document.getElementById("kissInput").value.trim();
+            if (reply !== "") {
+                document.getElementById("kissDialog").style.display = "none";
+                document.getElementById("kissTarget").style.display = "none";
+                openLetter();
+            } else {
+                alert("You can't open my letter without giving me a kiss first! 😉");
+            }
+        }
+
+        function openLetter() {
+            document.getElementById("envelope").style.display = "none";
+            document.getElementById("letter").style.display = "block";
+        }
+
+        // ================= GAME 2: COCONUT HUNT (BEFORE CAKE) =================
+
+        function startCoconutGame() {
+            document.getElementById('letter').style.display = 'none';
+            
+            const header = document.getElementById('gameHeader');
+            header.style.display = 'block';
+            setTimeout(() => { header.style.opacity = '1'; }, 50);
+
+            spawnCoconuts();
+        }
+
+        function spawnCoconuts() {
+            const container = document.getElementById('coconutContainer');
+            
+            for (let i = 0; i < totalCoconuts; i++) {
+                const coco = document.createElement('div');
+                coco.className = 'coconut';
+                coco.innerHTML = '🥥';
+                
+                const randomX = 5 + Math.random() * 90; 
+                const randomY = 10 + Math.random() * 80; 
+                
+                coco.style.left = `${randomX}%`;
+                coco.style.top = `${randomY}%`;
+                
+                const size = 22 + Math.random() * 20;
+                coco.style.fontSize = `${size}px`;
+                coco.style.transform = `rotate(${Math.random() * 360}deg)`;
+                coco.style.position = 'absolute';
+                coco.style.zIndex = '999';
+
+                coco.addEventListener('click', () => collectCoconut(coco));
+                container.appendChild(coco);
+            }
+        }
+
+        function collectCoconut(cocoElement) {
+            if (cocoElement.classList.contains('found')) return;
+            
+            cocoElement.classList.add('found');
+            coconutsFound++;
+            document.getElementById('cocoCount').innerText = coconutsFound;
+
+            cocoElement.style.transform = 'scale(2.5) rotate(45deg)';
+            cocoElement.style.opacity = '0';
+            setTimeout(() => {
+                cocoElement.remove();
+            }, 300);
+
+            if (coconutsFound === totalCoconuts) {
+                triggerSuccessSequence();
+            }
+        }
+
+        function triggerSuccessSequence() {
+            // Drop down the notification box from the top
+            const noti = document.getElementById('successNoti');
+            noti.classList.add('show');
+
+            // Hide the game counter bar cleanly
+            document.getElementById('gameHeader').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('gameHeader').style.display = 'none';
+            }, 500);
+
+            // Start raining celebration confetti
+            startConfettiRain();
+
+            // Wait 2.5 seconds to show off the notification and confetti before showing the cake
+            setTimeout(() => {
+                noti.classList.remove('show');
+                goToCelebration();
+            }, 2500);
+        }
+
+        // ================= VISUAL DECORATION EFFECT ENGINES =================
+
+        function startConfettiRain() {
+            const colors = ['#FDFBF7', '#D7CCC8', '#FFEB3B', '#FF4081', '#00E676', '#00B0FF'];
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.width = 5 + Math.random() * 8 + 'px';
+                    confetti.style.height = 8 + Math.random() * 12 + 'px';
+                    confetti.style.animationDuration = 2 + Math.random() * 3 + 's';
+                    confetti.style.opacity = 0.6 + Math.random() * 0.4;
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => { confetti.remove(); }, 5000);
+                }, i * 35);
+            }
+        }
+
+        function goToCelebration() {
+            document.getElementById('chapter5').style.display = 'none';
+            document.getElementById('chapter6').style.display = 'flex';
+        }
+        
+        function goToEpilogue() {
+    document.getElementById('chapter6').style.display = 'none';
+    const chap7 = document.getElementById('chapter7');
+    chap7.style.display = 'flex';
+}
+    </script>
+</body>
+</html>
