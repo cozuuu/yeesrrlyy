@@ -1,0 +1,260 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, #23120b 0%, #110805 100%);
+    font-family: 'Georgia', serif;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Subtle twinkling stars background for atmosphere */
+.stars-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+        radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px);
+    background-size: 550px 550px, 350px 350px;
+    background-position: 0 0, 40px 60px;
+    opacity: 0.2;
+}
+
+.envelope-wrapper {
+    position: relative;
+    cursor: pointer;
+    perspective: 1000px;
+}
+
+/* Elegant Skewed Envelope Design */
+.envelope {
+    position: relative;
+    width: 450px;
+    height: 280px;
+    background: #e6dfd3;
+    border-radius: 6px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.envelope:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 30px 50px rgba(0, 0, 0, 0.8);
+}
+
+/* Real Triangle Letter Flap */
+.flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 225px solid transparent;
+    border-right: 225px solid transparent;
+    border-top: 140px solid #dcd3c1;
+    z-index: 3;
+}
+
+/* Envelope Interior Pocket Lines */
+.pocket {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 225px solid #ebd9c0;
+    border-right: 225px solid #ebd9c0;
+    border-top: 140px solid transparent;
+    z-index: 2;
+}
+
+/* Premium Metallic / Wax Stamp Design */
+.wax-seal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, #8b261e 0%, #5c140e 100%);
+    border-radius: 50%;
+    z-index: 4;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4), inset 0 0 8px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed rgba(255, 255, 255, 0.1);
+    animation: pulseGlow 2s infinite ease-in-out;
+}
+
+.heart-icon {
+    font-size: 22px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+.instruction {
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    color: #8c7e6b;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-family: system-ui, sans-serif;
+    z-index: 5;
+}
+
+/* Gorgeous Vintage Letter Paper */
+.letter {
+    width: 500px;
+    background: #fffdf9;
+    padding: 40px;
+    border-radius: 4px;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.7);
+    border: 1px solid #eee;
+    background-image: linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px);
+    background-size: 100% 28px;
+    line-height: 28px;
+    animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.letter-content h2 {
+    color: #4a2c11;
+    font-size: 24px;
+    margin-bottom: 5px;
+    font-weight: normal;
+}
+
+.letter-date {
+    display: block;
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 15px;
+}
+
+.divider {
+    width: 60px;
+    height: 2px;
+    background: #c3a37a;
+    margin-bottom: 25px;
+}
+
+.letter p {
+    color: #332211;
+    font-size: 16px;
+    margin-bottom: 20px;
+    text-indent: 20px;
+}
+
+.signature {
+    text-align: right;
+    font-family: 'Brush Script MT', cursive, serif;
+    font-size: 24px !important;
+    color: #7d5632 !important;
+    margin-top: 30px;
+}
+/* Runaway Kiss Design */
+.kiss-target {
+    position: absolute;
+    top: 15%;
+    left: 10%;
+    font-size: 32px;
+    z-index: 10;
+    cursor: pointer;
+    user-select: none;
+    transition: left 0.15s cubic-bezier(0.25, 0.8, 0.25, 1), top 0.15s cubic-bezier(0.25, 0.8, 0.25, 1);
+    filter: drop-shadow(0 0 8px rgba(255, 105, 180, 0.6));
+    animation: pulseKiss 1.5s infinite ease-in-out;
+}
+
+/* Custom Centered Kiss Dialog Box */
+.kiss-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(17, 8, 5, 0.7);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.dialog-content {
+    background: #fffdf9;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.5);
+    text-align: center;
+    max-width: 380px;
+    width: 90%;
+    border: 1px solid #ebd9c0;
+}
+
+.dialog-text {
+    font-size: 1.25rem;
+    color: #4a2c11;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+#kissInput {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #ebd9c0;
+    border-radius: 6px;
+    background: #fff;
+    color: #332211;
+    font-size: 1rem;
+    outline: none;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: inherit;
+    transition: border-color 0.3s;
+}
+
+#kissInput:focus {
+    border-color: #8b261e;
+}
+
+.dialog-btn {
+    background: #8b261e !important;
+    color: #fff !important;
+    border: none;
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.dialog-btn:hover {
+    background: #a93226 !important;
+    transform: translateY(-2px);
+}
+
+@keyframes pulseKiss {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); filter: drop-shadow(0 0 15px rgba(255, 105, 180, 0.9)); }
+}
+/* Motion Dynamics */
+@keyframes pulseGlow {
+    0%, 100% { transform: translate(-50%, -30%) scale(1); box-shadow: 0 4px 10px rgba(0,0,0,0.4); }
+    50% { transform: translate(-50%, -30%) scale(1.06); box-shadow: 0 0 20px rgba(139, 38, 30, 0.6); }
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(50px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
